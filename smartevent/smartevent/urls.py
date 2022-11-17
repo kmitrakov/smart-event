@@ -23,3 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('event/', include('event.urls')),
 ]
+
+handler404 = pageNotFound
