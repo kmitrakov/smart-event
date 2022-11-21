@@ -8,6 +8,8 @@ class Event(models.Model):
     status = models.IntegerField(default=0)
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
+    user_create = models.IntegerField(null=True)
+
 
     def __str__(self):
         return self.title
