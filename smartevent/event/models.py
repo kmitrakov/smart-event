@@ -10,6 +10,5 @@ class Event(models.Model):
     time_update = models.DateTimeField(auto_now=True)
     user_create = models.IntegerField(null=True)
 
-
     def __str__(self):
         return self.title
