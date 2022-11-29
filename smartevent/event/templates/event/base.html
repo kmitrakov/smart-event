@@ -4,9 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
-    <link type="text/css" href="{% static 'event/css/styles.css' %}" rel="stylesheet">
+<!--    <link type="text/css" href="{% static 'event/css/styles.css' %}" rel="stylesheet"> -->
 </head>
 <body>
+{% block mainmenu %}
+{% for m in menu %}
+<li><a href="{% url m.urlname %}">{{m.title}}</a></li>
+{% endfor %}
+{% endblock mainmenu%}
 {% block content %}
 {% endblock content%}
 </body>

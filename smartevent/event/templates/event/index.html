@@ -2,12 +2,12 @@
 
 {% block content %}
 <h1>Main Page</h1>
-
 <ul>
     {% for ev in events_to_show %}
     <li>
         <h2>{{ev.title}}</h2>
         <p>{{ev.time_create}}</p>
+        <p><a href="{{ ev.get_absolute_url }}">View Event</a></p>
         <hr>
     </li>
     {% endfor %}
