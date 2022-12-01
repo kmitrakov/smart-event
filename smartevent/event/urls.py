@@ -6,7 +6,8 @@ urlpatterns = [
     path('', index, name='index'),
     path('event/<int:event_id>/', events, name='events'),
     path('about/', about, name='about'),
-    path('eventadd/', eventadd, name='eventadd'),
+    path('eventadd/', event_add, name='event_add'),
     path('contact/', contact, name='contact'),
-    path('signin/', signin, name='signin')
+    path('signin/', sign_in, name='sign_in'),
+    path('signout/', sign_out, name='sign_out')
 ]

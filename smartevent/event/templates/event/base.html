@@ -7,12 +7,17 @@
 <!--    <link type="text/css" href="{% static 'event/css/styles.css' %}" rel="stylesheet"> -->
 </head>
 <body>
-{% block mainmenu %}
-{% for m in menu %}
-<li><a href="{% url m.urlname %}">{{m.title}}</a></li>
+{% block menumaintop %}
+{% for menu_main_top_item in menu_main_top %}
+<li><a href="{% url menu_main_top_item.urlname %}">{{menu_main_top_item.title}}</a></li>
 {% endfor %}
-{% endblock mainmenu%}
+{% endblock menumaintop%}
 {% block content %}
 {% endblock content%}
+{% block menumainbottom %}
+{% for menu_main_bottom_item in menu_main_bottom %}
+<li><a href="{% url menu_main_bottom_item.urlname %}">{{menu_main_bottom_item.title}}</a></li>
+{% endfor %}
+{% endblock menumainbottom%}
 </body>
 </html>
