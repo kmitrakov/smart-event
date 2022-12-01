@@ -3,6 +3,11 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', index_event, name='index'),
-    path('<int:event_id>/', events)
+    path('', index, name='index'),
+    path('event/<int:event_id>/', events, name='events'),
+    path('about/', about, name='about'),
+    path('eventadd/', event_add, name='event_add'),
+    path('contact/', contact, name='contact'),
+    path('signin/', sign_in, name='sign_in'),
+    path('signout/', sign_out, name='sign_out')
 ]
