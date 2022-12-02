@@ -4,20 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
-<!--    <link type="text/css" href="{% static 'event/css/styles.css' %}" rel="stylesheet"> -->
+    <link type="text/css" href="{% static 'event/css/reset.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'event/css/styles.css' %}" rel="stylesheet">
 </head>
 <body>
-{% block menumaintop %}
-{% for menu_main_top_item in menu_main_top %}
-<li><a href="{% url menu_main_top_item.urlname %}">{{menu_main_top_item.title}}</a></li>
+{% block menumain %}
+{% for menu_main_item in menu_main %}
+<div>
+    <a href="{% url menu_main_item.urlname %}">{{menu_main_item.title}}</a>
+</div>
 {% endfor %}
-{% endblock menumaintop%}
+{% endblock menumain%}
 {% block content %}
 {% endblock content%}
-{% block menumainbottom %}
-{% for menu_main_bottom_item in menu_main_bottom %}
-<li><a href="{% url menu_main_bottom_item.urlname %}">{{menu_main_bottom_item.title}}</a></li>
-{% endfor %}
-{% endblock menumainbottom%}
 </body>
 </html>
