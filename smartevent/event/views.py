@@ -51,11 +51,8 @@ def event_add(request):
         form = EventAddForm(request.POST)
         if form.is_valid():
             # print(form.cleaned_data)
-            try:
-                Event.objects.create(**form.cleaned_data)
-                return redirect('index')
-            except:
-                form.add_error(None, 'Error Event Add')
+            form.save()
+            return redirect('index')
     else:
         form = EventAddForm()
 
