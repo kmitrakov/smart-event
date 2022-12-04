@@ -2,4 +2,18 @@
 
 {% block content %}
 <h1>Event Add</h1>
+<form action="{% url 'event_add' %}" method="post">
+    {% csrf_token %}
+    <div>{{ form.non_field_errors }}</div>
+    <p><label for="{{ form.title.id_for_label }}">{{form.title.label}}</label></p>
+    <p>{{ form.title }}</p>
+    <div>{{ form.title.errors }}</div>
+    <p><label for="{{ form.description.id_for_label }}">{{form.description.label}}</label></p>
+    <p>{{ form.description }}</p>
+    <div>{{ form.description.errors }}</div>
+    <p><label for="{{ form.scope.id_for_label }}">{{form.scope.label}}</label></p>
+    <p>{{ form.scope }}</p>
+    <div>{{ form.scope.errors }}</div>
+    <button type="submit">Add</button>
+</form>
 {% endblock content %}

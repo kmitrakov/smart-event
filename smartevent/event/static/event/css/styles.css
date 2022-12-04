@@ -1,27 +1,37 @@
 html, body {
 	font-family: "Roboto";
-	font-size: 1em;
+	font-size: 0.9em;
 	margin: 0;
 	padding: 10px;
 	height: 100%;
 	width: 100%;
-	color: #000000;
+	color: #797641;
 }
 
 div {
 
 }
 
+a, a:link {
+  color: #797641;
+}
+
+a:visited {
+  color: #797641;
+}
+
+a:hover {
+  color: #797641;
+}
+
+a:active {
+  color: #797641;
+}
+
 .event {
-    font-size: 0.9em;
-    padding: 5px;
-    background-color: #AEC670;
-    border: 1px solid #AEC670;
-    border-radius: 3px;
-    box-shadow: 2px 3px 3px -2px rgb(0 0 0 / 20%), 2px 3px 4px 0 rgb(0 0 0 / 14%), 2px 1px 8px 0 rgb(0 0 0 / 12%) !important;
-    margin: 0px 0px 10px 0px;
+
 }
 
 .event:hover {
-    box-shadow: 2px 2px 2px 3px rgb(136 136 136 / 66%) !important;
+
 }
