@@ -14,7 +14,8 @@ class EventAddForm(forms.ModelForm):
         fields = ['title', 'description', 'scope']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input-text'}),
-            'description': forms.Textarea(attrs={'class': 'form-input-textarea', 'cols': 60, 'rows': 10})
+            'description': forms.Textarea(attrs={'class': 'form-input-textarea', 'cols': 60, 'rows': 10}),
+            'scope': forms.Select(attrs={'class': 'form-select'})
         }
 
     def clean_title(self):

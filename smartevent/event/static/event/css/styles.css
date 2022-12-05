@@ -1,6 +1,6 @@
 html, body {
 	font-family: "Roboto";
-	font-size: 0.9em;
+	font-size: 1.0em;
 	margin: 0;
 	padding: 10px;
 	height: 100%;
@@ -38,10 +38,20 @@ a:active {
 
 .form-input-text {
     border: 1px solid #797641;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 .form-input-textarea {
     border: 1px solid #797641;
-    border-radius: 5px;
+    border-radius: 3px;
+}
+
+.form-select {
+    border: 1px solid #797641;
+    border-radius: 3px;
+}
+
+.form-button-submit {
+    border: 1px solid #797641;
+    border-radius: 3px;
 }

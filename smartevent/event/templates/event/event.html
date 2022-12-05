@@ -1,9 +1,9 @@
 {% extends 'event/base.html' %}
 
 {% block content %}
-<h1>Event</h1>
-<h2>{{event_to_show.title}}</h2>
-<h2>{{event_to_show.description}}</h2>
+<p>Event</p>
+<p>{{event_to_show.title}}</p>
+<p>{{event_to_show.description}}</p>
 <p>{{event_to_show.time_create|date:"d-m-Y H:i:s"}}</p>
 <p>{{event_to_show.time_update|date:"d-m-Y H:i:s"}}</p>
 {% endblock content %}

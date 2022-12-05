@@ -1,13 +1,13 @@
 {% extends 'event/base.html' %}
 
 {% block content %}
-<h1>Main Page</h1>
+<p>Main Page</p>
 {% for events_to_show_item in events_to_show %}
-    <div class="event">
-        <p>{{events_to_show_item.title}}</p>
-        <p>{{events_to_show_item.time_create|date:"d-m-Y H:i:s"}}</p>
-        <p>{{events_to_show_item.scope}}</p>
-        <p><a href="{{ events_to_show_item.get_absolute_url }}">View Event</a></p>
-    </div>
+<div class="event">
+    <p>{{events_to_show_item.title}}</p>
+    <p>{{events_to_show_item.time_create|date:"d-m-Y H:i:s"}}</p>
+    <p>{{events_to_show_item.scope}}</p>
+    <p><a href="{{ events_to_show_item.get_absolute_url }}">View Event</a></p>
+</div>
 {% endfor %}
 {% endblock content %}
