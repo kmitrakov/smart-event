@@ -9,14 +9,30 @@
     <link type="text/css" href="{% static 'event/css/styles.css' %}" rel="stylesheet">
 </head>
 <body>
-{% block menumain %}
-{% for menu_main_item in menu_main %}
-<div>
-    <a href="{% url menu_main_item.urlname %}">{{menu_main_item.title}}</a>
-</div>
-{% endfor %}
-{% endblock menumain %}
-{% block content %}
-{% endblock content%}
+<table class="table-page">
+    <tr>
+        <td valign=center>
+            {% block menumain %}
+            <div class="header">
+                <ul class="menu-main">
+                    {% for menu_main_item in menu_main %}
+                        {% if not forloop.last %}
+                            <li><a href="{% url menu_main_item.urlname %}">{{menu_main_item.title}}</a></li>
+                        {% else %}
+                            <li class="last" ><a href="{% url menu_main_item.urlname %}">{{menu_main_item.title}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endblock menumain %}
+        </td>
+    </tr>
+    <tr>
+        <td valign=center>
+            {% block content %}
+            {% endblock content%}
+        </td>
+    </tr>
+</table>
 </body>
 </html>

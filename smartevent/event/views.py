@@ -4,12 +4,12 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from .forms import *
 from .models import *
 
-menu_main = [{'title': "Sign In", 'urlname': 'sign_in'},
-             {'title': "Sign Out", 'urlname': 'sign_out'},
+menu_main = [{'title': "Main Page", 'urlname': 'index'},
              {'title': "Event Add", 'urlname': 'event_add'},
-             {'title': "Main Page", 'urlname': 'index'},
              {'title': "Contact", 'urlname': 'contact'},
-             {'title': "About", 'urlname': 'about'}
+             {'title': "About", 'urlname': 'about'},
+             {'title': "Sign Out", 'urlname': 'sign_out'},
+             {'title': "Sign In", 'urlname': 'sign_in'},
              ]
 
 
