@@ -12,6 +12,28 @@ div {
 
 }
 
+.div-menu-main-item {
+    color: #393A5A;
+    padding: 20px 30px 20px 30px;
+    background-color: #E9E9E9;
+}
+.div-menu-main-item-selected {
+    color: #393A5A;
+    padding: 20px 30px 20px 30px;
+    background-color: #ADA9BA;
+}
+.div-menu-main-item:hover {
+    color: #393A5A;
+    padding: 20px 30px 20px 30px;
+    background-color: #ADA9BA;
+}
+.div-menu-main-item a {
+    color: #393A5A;
+}
+.div-menu-main-item a:hover {
+    color: #393A5A;
+}
+
 a, a:link {
   color: #393A5A;
 }
