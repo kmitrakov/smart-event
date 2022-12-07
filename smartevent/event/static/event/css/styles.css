@@ -8,32 +8,13 @@ html, body {
 	color: #393A5A;
 }
 
+.table-page {
+    width: 100%;
+}
+
 div {
 
 }
-
-.div-menu-main-item {
-    color: #393A5A;
-    padding: 20px 30px 20px 30px;
-    background-color: #E9E9E9;
-}
-.div-menu-main-item-selected {
-    color: #393A5A;
-    padding: 20px 30px 20px 30px;
-    background-color: #ADA9BA;
-}
-.div-menu-main-item:hover {
-    color: #393A5A;
-    padding: 20px 30px 20px 30px;
-    background-color: #ADA9BA;
-}
-.div-menu-main-item a {
-    color: #393A5A;
-}
-.div-menu-main-item a:hover {
-    color: #393A5A;
-}
-
 a, a:link {
   color: #393A5A;
 }
@@ -48,6 +29,56 @@ a:hover {
 
 a:active {
   color: #393A5A;
+}
+
+/* Компонент menumain */
+.div-menu-main-item {
+    color: #393A5A;
+    padding: 20px 30px 20px 30px;
+    background-color: #E9E9E9;
+}
+.div-menu-main-item:hover {
+    color: #393A5A;
+    padding: 20px 30px 20px 30px;
+    background-color: #ADA9BA;
+}
+.div-menu-main-item-selected {
+    color: #393A5A;
+    padding: 20px 30px 20px 30px;
+    background-color: #ADA9BA;
+}
+.div-menu-main-item-blank {
+    color: #393A5A;
+    padding: 20px 30px 20px 30px;
+    background-color: #E9E9E9;
+}
+.div-menu-main-item a {
+    color: #393A5A;
+}
+.div-menu-main-item a:hover {
+    color: #393A5A;
+}
+
+ul.menu-main {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height: 60px;
+	overflow: hidden;
+	background-color: #E9E9E9;
+}
+ul.menu-main li {
+	float: left;
+	margin: 20px 30px 0px 30px;
+}
+ul.menu-main li.selected {
+    color: #706F8E;
+}
+ul.menu-main li a {
+
+}
+ul.menu-main li a:hover {
+    color: #706F8E;
 }
 
 .event {
@@ -78,32 +109,6 @@ a:active {
     border-radius: 3px;
 }
 
-.table-page {
-    width: 100%;
-}
-
 .header {
 
-}
-
-ul.menu-main {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	height: 60px;
-	overflow: hidden;
-	background-color: #E9E9E9;
-}
-ul.menu-main li {
-	float: left;
-	margin: 20px 30px 0px 30px;
-}
-ul.menu-main li.selected {
-    color: #706F8E;
-}
-ul.menu-main li a {
-
-}
-ul.menu-main li a:hover {
-    color: #706F8E;
 }

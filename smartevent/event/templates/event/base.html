@@ -16,24 +16,40 @@
             <table>
                 <tr>
                     {% for menu_main_item in menu_main %}
-                    <td>
-                        {% if menu_main_item.title == title %}
-                        <div class="div-menu-main-item-selected">
-                            {{menu_main_item.title}}
-                        </div>
+                        {% if not forloop.last %}
+                            <td style="white-space: nowrap">
+                            {% if menu_main_item.title == title %}
+                                <div class="div-menu-main-item-selected">
+                                    {{menu_main_item.title}}
+                                </div>
+                            {% else %}
+                                <div class="div-menu-main-item" onclick="location.href='{% url menu_main_item.urlname %}'" style="cursor: pointer" >
+                                    {{menu_main_item.title}}
+                                </div>
+                            {% endif %}
+                            </td>
                         {% else %}
-                        <div class="div-menu-main-item">
-                            <a href="{% url menu_main_item.urlname %}">{{menu_main_item.title}}</a>
-                        </div>
+                            <td width="99%">
+                            <div class="div-menu-main-item-blank">
+                                &nbsp;
+                            </div>
+                            </td>
+                            <td style="white-space: nowrap">
+                            {% if menu_main_item.title == title %}
+                                <div class="div-menu-main-item-selected">
+                                    {{menu_main_item.title}}
+                                </div>
+                            {% else %}
+                                <div class="div-menu-main-item" onclick="location.href='{% url menu_main_item.urlname %}'" style="cursor: pointer" >
+                                    {{menu_main_item.title}}
+                                </div>
+                            {% endif %}
+                            </td>
                         {% endif %}
-                    </td>
                     {% endfor %}
-                    <td>
-
-                    </td>
                 </tr>
             </table>
-
+            <!--
             <div class="header">
                 <ul class="menu-main">
                     {% for menu_main_item in menu_main %}
@@ -45,13 +61,20 @@
                     {% endfor %}
                 </ul>
             </div>
+            -->
             {% endblock menumain %}
         </td>
     </tr>
     <tr>
         <td valign=center>
-            {% block content %}
-            {% endblock content%}
+            <table>
+                <tr>
+                    <td>
+                        {% block content %}
+                        {% endblock content%}
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
 </table>

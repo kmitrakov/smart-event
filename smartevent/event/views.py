@@ -10,6 +10,7 @@ menu_main = [{'title': "Main Page", 'urlname': 'index'},
              {'title': "About", 'urlname': 'about'},
              {'title': "Sign Out", 'urlname': 'sign_out'},
              {'title': "Sign In", 'urlname': 'sign_in'},
+             {'title': "My Space", 'urlname': 'my_space'}
              ]
 
 
@@ -90,6 +91,15 @@ def sign_out(request):
     }
 
     return render(request, 'event/sign_out.html', context=context)
+
+
+def my_space(request):
+    context = {
+        'title': 'My Space',
+        'menu_main': menu_main
+    }
+
+    return render(request, 'event/my_space.html', context=context)
 
 
 def pageNotFound(request, exception):
