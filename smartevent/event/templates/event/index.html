@@ -2,12 +2,12 @@
 
 {% block content %}
 <p>Main Page</p>
-{% for events_to_show_item in events_to_show %}
+{% for events_item in events %}
 <div class="event">
-    <p>{{events_to_show_item.title}}</p>
-    <p>{{events_to_show_item.time_create|date:"d-m-Y H:i:s"}}</p>
-    <p>{{events_to_show_item.scope}}</p>
-    <p><a href="{{ events_to_show_item.get_absolute_url }}">View Event</a></p>
+    <p>{{events_item.title}}</p>
+    <p>{{events_item.time_create|date:"d-m-Y H:i:s"}}</p>
+    <p>{{events_item.scope}}</p>
+    <p><a href="{{ events_item.get_absolute_url }}">View Event</a></p>
 </div>
 {% endfor %}
 {% endblock content %}

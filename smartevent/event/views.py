@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.views.generic import ListView
 
 from .forms import *
 from .models import *
@@ -14,16 +15,31 @@ menu_main = [{'title': "Main Page", 'urlname': 'index'},
              ]
 
 
-def index(request):
-    events_to_show = Event.objects.filter(scope=1)
+class EventIndex(ListView):
+    model = Event
+    template_name = 'event/index.html'
+    context_object_name = 'events'
+    extra_context = {'title': 'Main Page'}
 
-    context = {
-        'title': 'Main Page',
-        'menu_main': menu_main,
-        'events_to_show': events_to_show
-    }
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Main Page'
+        context['menu_main'] = menu_main
+        return context
 
-    return render(request, 'event/index.html', context=context)
+    def get_queryset(self):
+        return Event.objects.filter(scope=1)
+
+# def index(request):
+#    events_to_show = Event.objects.filter(scope=1)
+#
+#    context = {
+#        'title': 'Main Page',
+#        'menu_main': menu_main,
+#        'events_to_show': events_to_show
+#    }
+#
+#    return render(request, 'event/index.html', context=context)
 
 
 def events(request, event_id):
