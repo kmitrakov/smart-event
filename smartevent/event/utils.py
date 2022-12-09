@@ -1,4 +1,4 @@
-# TODO: Необходимо отрефакторить метод отрисовки menu_main в шаблоне base.html.
+# TODO: Доработать метод отрисовки menu_main в шаблоне base.html.
 #  Избавиться от дублирования кода.
 menu_main = [{'title': "Main Page", 'urlname': 'index'},
              {'title': "Event Add", 'urlname': 'event_add'},
@@ -11,6 +11,9 @@ menu_main = [{'title': "Main Page", 'urlname': 'index'},
 
 
 class DataMixin:
+    # TODO: Доработать пагинацию в шаблоне base.html.
+    #  Сделать блокировку кнопок "<", ">" вместо их не отображения.
+    #  Добавить кнопки "<<", ">>".
     paginate_by = 5
 
     def get_user_context(self, **kwargs):
