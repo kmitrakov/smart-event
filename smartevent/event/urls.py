@@ -10,5 +10,6 @@ urlpatterns = [
     path('contact/', contact, name='contact'),
     path('signin/', sign_in, name='sign_in'),
     path('signout/', sign_out, name='sign_out'),
+    path('signup/', SignUp.as_view(), name='sign_up'),
     path('myspace/', my_space, name='my_space')
 ]

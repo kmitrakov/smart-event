@@ -84,6 +84,17 @@ def sign_out(request):
     return render(request, 'event/sign_out.html', context=context)
 
 
+class SignUp(DataMixin, CreateView):
+    form_class = SignUpForm
+    template_name = 'event/sign_up.html'
+    success_url = reverse_lazy('sign_in')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Sign Up')
+        return dict(list(context.items()) + list(c_def.items()))
+
+
 @login_required
 def my_space(request):
     context = {

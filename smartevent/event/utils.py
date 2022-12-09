@@ -6,6 +6,7 @@ menu_main = [{'title': "Main Page", 'urlname': 'index'},
              {'title': "About", 'urlname': 'about'},
              {'title': "Sign Out", 'urlname': 'sign_out'},
              {'title': "Sign In", 'urlname': 'sign_in'},
+             {'title': "Sign Up", 'urlname': 'sign_up'},
              {'title': "My Space", 'urlname': 'my_space'}
              ]
 

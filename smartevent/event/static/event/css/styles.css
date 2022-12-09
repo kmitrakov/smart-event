@@ -92,21 +92,23 @@ a:active {
 
 }
 
+/* Форма */
 .form-input-text {
     border: 1px solid #393A5A;
     border-radius: 3px;
 }
-
+.form-input-password {
+    border: 1px solid #393A5A;
+    border-radius: 3px;
+}
 .form-input-textarea {
     border: 1px solid #393A5A;
     border-radius: 3px;
 }
-
 .form-select {
     border: 1px solid #393A5A;
     border-radius: 3px;
 }
-
 .form-button-submit {
     border: 1px solid #393A5A;
     border-radius: 3px;
