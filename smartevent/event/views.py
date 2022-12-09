@@ -5,6 +5,8 @@ from django.views.generic import ListView
 from .forms import *
 from .models import *
 
+# TODO: Необходимо отрефакторить метод отрисовки menu_main в шаблоне base.html.
+#  Избавиться от дублирования кода.
 menu_main = [{'title': "Main Page", 'urlname': 'index'},
              {'title': "Event Add", 'urlname': 'event_add'},
              {'title': "Contact", 'urlname': 'contact'},
@@ -19,7 +21,6 @@ class EventIndex(ListView):
     model = Event
     template_name = 'event/index.html'
     context_object_name = 'events'
-    extra_context = {'title': 'Main Page'}
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -29,17 +30,6 @@ class EventIndex(ListView):
 
     def get_queryset(self):
         return Event.objects.filter(scope=1)
-
-# def index(request):
-#    events_to_show = Event.objects.filter(scope=1)
-#
-#    context = {
-#        'title': 'Main Page',
-#        'menu_main': menu_main,
-#        'events_to_show': events_to_show
-#    }
-#
-#    return render(request, 'event/index.html', context=context)
 
 
 def events(request, event_id):
