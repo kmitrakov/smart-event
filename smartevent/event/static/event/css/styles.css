@@ -61,6 +61,29 @@ a:active {
     color: #393A5A;
 }
 
+/* Компонент paginator */
+.div-paginator-item {
+    color: #393A5A;
+    padding: 10px 20px 10px 20px;
+    background-color: #E9E9E9;
+}
+.div-paginator-item:hover {
+    color: #393A5A;
+    padding: 10px 20px 10px 20px;
+    background-color: #ADA9BA;
+}
+.div-paginator-item-selected {
+    color: #393A5A;
+    padding: 10px 20px 10px 20px;
+    background-color: #ADA9BA;
+}
+.div-paginator-item a {
+    color: #393A5A;
+}
+.div-paginator-item a:hover {
+    color: #393A5A;
+}
+
 ul.menu-main {
 	list-style: none;
 	margin: 0;

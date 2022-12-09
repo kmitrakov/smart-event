@@ -11,8 +11,16 @@ menu_main = [{'title': "Main Page", 'urlname': 'index'},
 
 
 class DataMixin:
+    paginate_by = 5
+
     def get_user_context(self, **kwargs):
         context = kwargs
-        context['menu_main'] = menu_main
+
+        menu_user = menu_main.copy()
+
+        # TODO: Добавить удаление пунктов меню для неавторизованных пользователей.
+        #if not self.request.user.is_authenticated:
+
+        context['menu_main'] = menu_user
 
         return context

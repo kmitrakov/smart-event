@@ -23,7 +23,7 @@
                                     {{menu_main_item.title}}
                                 </div>
                             {% else %}
-                                <div class="div-menu-main-item" onclick="location.href='{% url menu_main_item.urlname %}'" style="cursor: pointer" >
+                                <div class="div-menu-main-item" onclick="location.href='{% url menu_main_item.urlname %}'" style="cursor: pointer">
                                     {{menu_main_item.title}}
                                 </div>
                             {% endif %}
@@ -40,7 +40,7 @@
                                     {{menu_main_item.title}}
                                 </div>
                             {% else %}
-                                <div class="div-menu-main-item" onclick="location.href='{% url menu_main_item.urlname %}'" style="cursor: pointer" >
+                                <div class="div-menu-main-item" onclick="location.href='{% url menu_main_item.urlname %}'" style="cursor: pointer">
                                     {{menu_main_item.title}}
                                 </div>
                             {% endif %}
@@ -72,6 +72,27 @@
                     <td>
                         {% block content %}
                         {% endblock content%}
+                        {% if page_obj.has_other_pages %}
+                        <table>
+                            <tr>
+                                {% for page in paginator.page_range %}
+                                    {% if page_obj.number == page %}
+                                        <td>
+                                            <div class="div-paginator-item-selected">
+                                                {{ page }}
+                                            </div>
+                                        </td>
+                                    {% else %}
+                                        <td>
+                                            <div class="div-paginator-item" onclick="location.href='?page={{ page }}'" style="cursor: pointer">
+                                                {{ page }}
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        </table>
+                        {% endif %}
                     </td>
                 </tr>
             </table>
