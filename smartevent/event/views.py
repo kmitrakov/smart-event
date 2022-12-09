@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 
 from .forms import *
 from .models import *
@@ -45,6 +46,18 @@ class EventShow(DetailView):
         return context
 
 
+class EventAdd(CreateView):
+    form_class = EventAddForm
+    template_name = 'event/event_add.html'
+    success_url = reverse_lazy('index')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Event Add'
+        context['menu_main'] = menu_main
+        return context
+
+
 def about(request):
     context = {
         'title': 'About',
@@ -52,25 +65,6 @@ def about(request):
     }
 
     return render(request, 'event/about.html', context=context)
-
-
-def event_add(request):
-    if request.method == 'POST':
-        form = EventAddForm(request.POST)
-        if form.is_valid():
-            # print(form.cleaned_data)
-            form.save()
-            return redirect('index')
-    else:
-        form = EventAddForm()
-
-    context = {
-        'title': 'Event Add',
-        'menu_main': menu_main,
-        'form': form
-    }
-
-    return render(request, 'event/event_add.html', context=context)
 
 
 def contact(request):
