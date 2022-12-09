@@ -5,35 +5,24 @@ from django.views.generic import ListView, DetailView, CreateView
 
 from .forms import *
 from .models import *
-
-# TODO: Необходимо отрефакторить метод отрисовки menu_main в шаблоне base.html.
-#  Избавиться от дублирования кода.
-menu_main = [{'title': "Main Page", 'urlname': 'index'},
-             {'title': "Event Add", 'urlname': 'event_add'},
-             {'title': "Contact", 'urlname': 'contact'},
-             {'title': "About", 'urlname': 'about'},
-             {'title': "Sign Out", 'urlname': 'sign_out'},
-             {'title': "Sign In", 'urlname': 'sign_in'},
-             {'title': "My Space", 'urlname': 'my_space'}
-             ]
+from .utils import *
 
 
-class EventIndex(ListView):
+class EventIndex(DataMixin, ListView):
     model = Event
     template_name = 'event/index.html'
     context_object_name = 'events'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Main Page'
-        context['menu_main'] = menu_main
-        return context
+        c_def = self.get_user_context(title='Main Page')
+        return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
         return Event.objects.filter(scope=1)
 
 
-class EventShow(DetailView):
+class EventShow(DataMixin, DetailView):
     model = Event
     template_name = 'event/event.html'
     pk_url_kwarg = 'event_id'
@@ -41,21 +30,19 @@ class EventShow(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Event'
-        context['menu_main'] = menu_main
-        return context
+        c_def = self.get_user_context(title='Event')
+        return dict(list(context.items()) + list(c_def.items()))
 
 
-class EventAdd(CreateView):
+class EventAdd(DataMixin, CreateView):
     form_class = EventAddForm
     template_name = 'event/event_add.html'
     success_url = reverse_lazy('index')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Event Add'
-        context['menu_main'] = menu_main
-        return context
+        c_def = self.get_user_context(title='Event Add')
+        return dict(list(context.items()) + list(c_def.items()))
 
 
 def about(request):
