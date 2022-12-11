@@ -2,8 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import logout
+from django.contrib.auth import login
 
 from .forms import *
 from .models import *
@@ -48,40 +51,30 @@ class EventAdd(LoginRequiredMixin, DataMixin, CreateView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-def about(request):
-    context = {
-        'title': 'About',
-        'menu_main': menu_main
-    }
+class Contact(DataMixin, TemplateView):
+    template_name = 'event/contact.html'
 
-    return render(request, 'event/about.html', context=context)
-
-
-def contact(request):
-    context = {
-        'title': 'Contact',
-        'menu_main': menu_main
-    }
-
-    return render(request, 'event/contact.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Contact')
+        return dict(list(context.items()) + list(c_def.items()))
 
 
-def sign_in(request):
-    context = {
-        'title': 'Sign In',
-        'menu_main': menu_main
-    }
+class About(DataMixin, TemplateView):
+    template_name = 'event/about.html'
 
-    return render(request, 'event/sign_in.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='About')
+        return dict(list(context.items()) + list(c_def.items()))
 
 
-def sign_out(request):
-    context = {
-        'title': 'Sign Out',
-        'menu_main': menu_main
-    }
+class SignOut(View):
+    def get(self, request):
+        logout(request)
+        return redirect('index')
 
-    return render(request, 'event/sign_out.html', context=context)
+    # TODO: Подумать, как вернуть этот класс к типу TemplateView.
 
 
 class SignUp(DataMixin, CreateView):
@@ -94,15 +87,35 @@ class SignUp(DataMixin, CreateView):
         c_def = self.get_user_context(title='Sign Up')
         return dict(list(context.items()) + list(c_def.items()))
 
+    # Если пользователь успешно зарегистрирован,
+    # то он автоматически аутентифицируется и перенеправляется
+    # на главную страницу.
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('index')
 
-@login_required
-def my_space(request):
-    context = {
-        'title': 'My Space',
-        'menu_main': menu_main
-    }
 
-    return render(request, 'event/my_space.html', context=context)
+class SignIn(DataMixin, LoginView):
+    form_class = SignInForm
+    template_name = 'event/sign_in.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Sign In')
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_success_url(self):
+        return reverse_lazy('index')
+
+
+class MySpace(DataMixin, TemplateView):
+    template_name = 'event/my_space.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='My Space')
+        return dict(list(context.items()) + list(c_def.items()))
 
 
 def pageNotFound(request, exception):

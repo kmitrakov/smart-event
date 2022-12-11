@@ -5,11 +5,11 @@ from .views import *
 urlpatterns = [
     path('', EventIndex.as_view(), name='index'),
     path('event/<int:event_id>/', EventShow.as_view(), name='event'),
-    path('about/', about, name='about'),
     path('eventadd/', EventAdd.as_view(), name='event_add'),
-    path('contact/', contact, name='contact'),
-    path('signin/', sign_in, name='sign_in'),
-    path('signout/', sign_out, name='sign_out'),
+    path('contact/', Contact.as_view(), name='contact'),
+    path('about/', About.as_view(), name='about'),
+    path('signin/', SignIn.as_view(), name='sign_in'),
+    path('signout/', SignOut.as_view(), name='sign_out'),
     path('signup/', SignUp.as_view(), name='sign_up'),
-    path('myspace/', my_space, name='my_space')
+    path('myspace/', MySpace.as_view(), name='my_space')
 ]
