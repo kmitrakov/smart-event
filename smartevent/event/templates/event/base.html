@@ -13,11 +13,11 @@
     <tr>
         <td valign=center>
             {% block menumain %}
-            <table>
+            <table class="table-menu-main">
                 <tr>
                     {% for menu_main_item in menu_main %}
                         {% if not forloop.last %}
-                            <td style="white-space: nowrap">
+                            <td style="white-space: nowrap;">
                             {% if menu_main_item.title == title %}
                                 <div class="div-menu-main-item-selected">
                                     {{menu_main_item.title}}
@@ -34,7 +34,7 @@
                                 &nbsp;
                             </div>
                             </td>
-                            <td style="white-space: nowrap">
+                            <td style="white-space: nowrap;">
                             {% if menu_main_item.title == title %}
                                 <div class="div-menu-main-item-selected">
                                     {{menu_main_item.title}}

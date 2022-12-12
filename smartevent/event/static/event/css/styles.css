@@ -13,6 +13,9 @@ html, body {
 .table-page {
     width: 100%;
 }
+.table-menu-main {
+    border-spacing: 0;
+}
 
 div {
 

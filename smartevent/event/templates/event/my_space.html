@@ -2,5 +2,6 @@
 
 {% block content %}
 <p>My Space ({{user.username}})</p>
+<p><a href="{% url 'profile' %}">Profile</a></p>
 <p><a href="{% url 'sign_out' %}">Sing Out</a></p>
 {% endblock content %}
