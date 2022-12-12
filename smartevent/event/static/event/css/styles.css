@@ -77,6 +77,11 @@ a:active {
     padding: 10px 20px 10px 20px;
     background-color: #ADA9BA;
 }
+.div-paginator-item-blocked {
+    color: #393A5A;
+    padding: 10px 20px 10px 20px;
+    background-color: #E9E9E9;
+}
 .div-paginator-item a {
     color: #393A5A;
 }

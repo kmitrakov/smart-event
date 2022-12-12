@@ -13,9 +13,6 @@ menu_main_initial = [{'title': 'Main Page', 'urlname': 'index'},
 
 
 class DataMixin:
-    # TODO: Доработать пагинацию в шаблоне base.html.
-    #  Сделать блокировку кнопок "<", ">" вместо их не отображения.
-    #  Добавить кнопки "<<", ">>".
     paginate_by = 5
 
     def get_user_context(self, **kwargs):

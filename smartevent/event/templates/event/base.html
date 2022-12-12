@@ -71,7 +71,23 @@
                 <tr>
                     {% if page_obj.has_previous %}
                     <td>
+                        <div class="div-paginator-item" onclick="location.href='?page=1'" style="cursor: pointer">
+                            &lt;&lt;
+                        </div>
+                    </td>
+                    <td>
                         <div class="div-paginator-item" onclick="location.href='?page={{ page_obj.previous_page_number }}'" style="cursor: pointer">
+                            &lt;
+                        </div>
+                    </td>
+                    {% else %}
+                    <td>
+                        <div class="div-paginator-item-blocked">
+                            &lt;&lt;
+                        </div>
+                    </td>
+                    <td>
+                        <div class="div-paginator-item-blocked">
                             &lt;
                         </div>
                     </td>
@@ -95,6 +111,22 @@
                     <td>
                         <div class="div-paginator-item" onclick="location.href='?page={{ page_obj.next_page_number }}'" style="cursor: pointer">
                             &gt;
+                        </div>
+                    </td>
+                    <td>
+                        <div class="div-paginator-item" onclick="location.href='?page={{ paginator.num_pages }}'" style="cursor: pointer">
+                            &gt;&gt;
+                        </div>
+                    </td>
+                    {% else %}
+                    <td>
+                        <div class="div-paginator-item-blocked">
+                            &gt;
+                        </div>
+                    </td>
+                    <td>
+                        <div class="div-paginator-item-blocked">
+                            &gt;&gt;
                         </div>
                     </td>
                     {% endif %}
