@@ -11,5 +11,6 @@ urlpatterns = [
     path('signin/', SignIn.as_view(), name='sign_in'),
     path('signout/', SignOut.as_view(), name='sign_out'),
     path('signup/', SignUp.as_view(), name='sign_up'),
-    path('myspace/', MySpace.as_view(), name='my_space')
+    path('myspace/', MySpace.as_view(), name='my_space'),
+    path('forgotpassword/', ForgotPassword.as_view(), name='forgot_password')
 ]

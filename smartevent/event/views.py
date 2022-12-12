@@ -118,5 +118,14 @@ class MySpace(DataMixin, TemplateView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
+class ForgotPassword(DataMixin, TemplateView):
+    template_name = 'event/forgot_password.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Forgot Password')
+        return dict(list(context.items()) + list(c_def.items()))
+
+
 def pageNotFound(request, exception):
     return HttpResponseNotFound("Страница не найдена.")
