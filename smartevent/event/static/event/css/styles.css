@@ -16,6 +16,9 @@ html, body {
 .table-menu-main {
     border-spacing: 0;
 }
+.table-paginator {
+    border-spacing: 0;
+}
 
 div {
 

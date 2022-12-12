@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect, Http404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -49,6 +49,17 @@ class EventAdd(LoginRequiredMixin, DataMixin, CreateView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Event Add')
         return dict(list(context.items()) + list(c_def.items()))
+
+    def form_valid(self, form):
+        form.instance.user_create = self.request.user.id
+        return super().form_valid(form)
+
+        # self.object = form.save(commit=False)
+        # self.object.user_create = self.request.user.id
+        # self.object.save()
+        # return HttpResponseRedirect(self.get_success_url())
+
+
 
 
 class Contact(DataMixin, TemplateView):
