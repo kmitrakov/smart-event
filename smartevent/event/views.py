@@ -40,6 +40,7 @@ class EventShow(DataMixin, DetailView):
 
 
 class EventAdd(LoginRequiredMixin, DataMixin, CreateView):
+    model = Event
     form_class = EventAddForm
     template_name = 'event/event_add.html'
     success_url = reverse_lazy('index')
@@ -51,15 +52,16 @@ class EventAdd(LoginRequiredMixin, DataMixin, CreateView):
         return dict(list(context.items()) + list(c_def.items()))
 
     def form_valid(self, form):
-        form.instance.user_create = self.request.user.id
+        form.instance.user_create = self.request.user
         return super().form_valid(form)
+
+        # form.instance.user_create = self.request.user.id
+        # return super().form_valid(form)
 
         # self.object = form.save(commit=False)
         # self.object.user_create = self.request.user.id
         # self.object.save()
         # return HttpResponseRedirect(self.get_success_url())
-
-
 
 
 class Contact(DataMixin, TemplateView):
@@ -145,6 +147,7 @@ class Profile(DataMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Profile')
         return dict(list(context.items()) + list(c_def.items()))
+
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound("Страница не найдена.")

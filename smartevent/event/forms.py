@@ -10,7 +10,7 @@ from .models import *
 class EventAddForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['scope'].empty_label = "Select Scope"
+        self.fields['scope'].empty_label = "Select Scope"
 
     class Meta:
         model = Event
