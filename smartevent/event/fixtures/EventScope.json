@@ -1,0 +1,1 @@
+[{"model": "event.eventscope", "pk": 1, "fields": {"name": "Public"}}, {"model": "event.eventscope", "pk": 2, "fields": {"name": "Private"}}]
