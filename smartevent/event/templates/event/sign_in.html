@@ -1,5 +1,18 @@
 {% extends 'event/base.html' %}
 
 {% block content %}
-<h1>Sign In</h1>
+<p>Sign In</p>
+<form method="post">
+    {% csrf_token %}
+    <div>{{ form.non_field_errors }}</div>
+    <p><label for="{{ form.username.id_for_label }}">{{form.username.label}}</label></p>
+    <p>{{ form.username }}</p>
+    <div>{{ form.username.errors }}</div>
+    <p><label for="{{ form.password.id_for_label }}">{{form.password.label}}</label></p>
+    <p>{{ form.password }}</p>
+    <div>{{ form.password.errors }}</div>
+    <button type="submit" class="form-button-submit">Sign In</button>
+    <p><a href="{% url 'sign_up' %}">Sing Up</a></p>
+    <p><a href="{% url 'forgot_password' %}">Forgot Password</a></p>
+</form>
 {% endblock content %}

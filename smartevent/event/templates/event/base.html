@@ -1,23 +1,140 @@
 {% load static %}
+{% load event_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
-<!--    <link type="text/css" href="{% static 'event/css/styles.css' %}" rel="stylesheet"> -->
+    <link type="text/css" href="{% static 'event/css/reset.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'event/css/styles.css' %}" rel="stylesheet">
 </head>
 <body>
-{% block menumaintop %}
-{% for menu_main_top_item in menu_main_top %}
-<li><a href="{% url menu_main_top_item.urlname %}">{{menu_main_top_item.title}}</a></li>
-{% endfor %}
-{% endblock menumaintop%}
-{% block content %}
-{% endblock content%}
-{% block menumainbottom %}
-{% for menu_main_bottom_item in menu_main_bottom %}
-<li><a href="{% url menu_main_bottom_item.urlname %}">{{menu_main_bottom_item.title}}</a></li>
-{% endfor %}
-{% endblock menumainbottom%}
+<table class="table-page">
+    <tr>
+        <td valign=center>
+            {% block menumain %}
+            <table class="table-menu-main">
+                <tr>
+                    {% for menu_main_item in menu_main %}
+                        {% if not forloop.last %}
+                            <td style="white-space: nowrap;">
+                            {% if menu_main_item.title == title %}
+                                <div class="div-menu-main-item-selected">
+                                    {{menu_main_item.title}}
+                                </div>
+                            {% else %}
+                                <div class="div-menu-main-item" onclick="location.href='{% url menu_main_item.urlname %}'" style="cursor: pointer">
+                                    {{menu_main_item.title}}
+                                </div>
+                            {% endif %}
+                            </td>
+                        {% else %}
+                            <td width="99%">
+                            <div class="div-menu-main-item-blank">
+                                &nbsp;
+                            </div>
+                            </td>
+                            <td style="white-space: nowrap;">
+                            {% if menu_main_item.title == title %}
+                                <div class="div-menu-main-item-selected">
+                                    {{menu_main_item.title}}
+                                </div>
+                            {% else %}
+                                <div class="div-menu-main-item" onclick="location.href='{% url menu_main_item.urlname %}'" style="cursor: pointer">
+                                    {{menu_main_item.title}}
+                                </div>
+                            {% endif %}
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </table>
+            {% endblock menumain %}
+        </td>
+    </tr>
+    <tr>
+        <td valign=center>
+            <table>
+                <tr>
+                    <td>
+                        {% block content %}
+                        {% endblock content%}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td valign=center align=center>
+            {% if page_obj.has_other_pages %}
+            <table class="table-paginator">
+                <tr>
+                    {% if page_obj.has_previous %}
+                    <td>
+                        <div class="div-paginator-item" onclick="location.href='?page=1'" style="cursor: pointer">
+                            &lt;&lt;
+                        </div>
+                    </td>
+                    <td>
+                        <div class="div-paginator-item" onclick="location.href='?page={{ page_obj.previous_page_number }}'" style="cursor: pointer">
+                            &lt;
+                        </div>
+                    </td>
+                    {% else %}
+                    <td>
+                        <div class="div-paginator-item-blocked">
+                            &lt;&lt;
+                        </div>
+                    </td>
+                    <td>
+                        <div class="div-paginator-item-blocked">
+                            &lt;
+                        </div>
+                    </td>
+                    {% endif %}
+                    {% for page in paginator.page_range %}
+                    {% if page_obj.number == page %}
+                    <td>
+                        <div class="div-paginator-item-selected">
+                            {{ page }}
+                        </div>
+                    </td>
+                    {% elif page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+                    <td>
+                        <div class="div-paginator-item" onclick="location.href='?page={{ page }}'" style="cursor: pointer">
+                            {{ page }}
+                        </div>
+                    </td>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <td>
+                        <div class="div-paginator-item" onclick="location.href='?page={{ page_obj.next_page_number }}'" style="cursor: pointer">
+                            &gt;
+                        </div>
+                    </td>
+                    <td>
+                        <div class="div-paginator-item" onclick="location.href='?page={{ paginator.num_pages }}'" style="cursor: pointer">
+                            &gt;&gt;
+                        </div>
+                    </td>
+                    {% else %}
+                    <td>
+                        <div class="div-paginator-item-blocked">
+                            &gt;
+                        </div>
+                    </td>
+                    <td>
+                        <div class="div-paginator-item-blocked">
+                            &gt;&gt;
+                        </div>
+                    </td>
+                    {% endif %}
+                </tr>
+            </table>
+            {% endif %}
+        </td>
+    </tr>
+</table>
 </body>
 </html>

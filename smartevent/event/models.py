@@ -4,6 +4,7 @@ from django.urls import reverse
 
 class Event(models.Model):
     title = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
     status = models.IntegerField(default=0)
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
@@ -14,7 +15,12 @@ class Event(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('events', kwargs={'event_id': self.pk})
+        return reverse('event', kwargs={'event_id': self.id})
+
+    class Meta:
+        verbose_name = 'Event'
+        verbose_name_plural = 'Events'
+        ordering = ['-time_create']
 
 
 class EventScope(models.Model):
@@ -22,3 +28,8 @@ class EventScope(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Event Scope'
+        verbose_name_plural = 'Event Scopes'
+        ordering = ['id']

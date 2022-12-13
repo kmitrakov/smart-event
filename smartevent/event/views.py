@@ -1,101 +1,150 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect, Http404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, TemplateView, View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import logout
+from django.contrib.auth import login
 
+from .forms import *
 from .models import *
-
-menu_main_top = [{'title': "Sign In", 'urlname': 'sign_in'},
-                 {'title': "Sign Out", 'urlname': 'sign_out'},
-                 {'title': "Event Add", 'urlname': 'event_add'}
-                 ]
-
-menu_main_bottom = [{'title': "Main Page", 'urlname': 'index'},
-                    {'title': "Contact", 'urlname': 'contact'},
-                    {'title': "About", 'urlname': 'about'}
-                    ]
+from .utils import *
 
 
-def index(request):
-    events_to_show = Event.objects.filter(scope=1)
+class EventIndex(DataMixin, ListView):
+    model = Event
+    template_name = 'event/index.html'
+    context_object_name = 'events'
 
-    context = {
-        'title': 'Main Page',
-        'menu_main_top': menu_main_top,
-        'menu_main_bottom': menu_main_bottom,
-        'events_to_show': events_to_show
-    }
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Main Page')
+        return dict(list(context.items()) + list(c_def.items()))
 
-    return render(request, 'event/index.html', context=context)
-
-
-def events(request, event_id):
-    event_to_show = Event.objects.filter(id=event_id)
-
-    if len(event_to_show) == 1:
-        context = {
-            'title': 'Event',
-            'menu_main_top': menu_main_top,
-            'menu_main_bottom': menu_main_bottom,
-            'event_to_show': event_to_show[0]
-        }
-
-        return render(request, 'event/event.html', context=context)
-    else:
-        context = {
-            'title': 'Event None',
-            'menu_main_top': menu_main_top,
-            'menu_main_bottom': menu_main_bottom
-        }
-
-        return render(request, 'event/event_none.html', context=context)
+    def get_queryset(self):
+        return Event.objects.filter(scope=1)
 
 
-def about(request):
-    context = {
-        'title': 'About',
-        'menu_main_top': menu_main_top,
-        'menu_main_bottom': menu_main_bottom
-    }
+class EventShow(DataMixin, DetailView):
+    model = Event
+    template_name = 'event/event.html'
+    pk_url_kwarg = 'event_id'
+    context_object_name = 'event'
 
-    return render(request, 'event/about.html', context=context)
-
-
-def event_add(request):
-    context = {
-        'title': 'Event Add',
-        'menu_main_top': menu_main_top,
-        'menu_main_bottom': menu_main_bottom
-    }
-
-    return render(request, 'event/event_add.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Event')
+        return dict(list(context.items()) + list(c_def.items()))
 
 
-def contact(request):
-    context = {
-        'title': 'Contact',
-        'menu_main_top': menu_main_top,
-        'menu_main_bottom': menu_main_bottom
-    }
+class EventAdd(LoginRequiredMixin, DataMixin, CreateView):
+    form_class = EventAddForm
+    template_name = 'event/event_add.html'
+    success_url = reverse_lazy('index')
+    login_url = reverse_lazy('sign_in')
 
-    return render(request, 'event/contact.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Event Add')
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def form_valid(self, form):
+        form.instance.user_create = self.request.user.id
+        return super().form_valid(form)
+
+        # self.object = form.save(commit=False)
+        # self.object.user_create = self.request.user.id
+        # self.object.save()
+        # return HttpResponseRedirect(self.get_success_url())
 
 
-def sign_in(request):
-    context = {
-        'title': 'Sign In',
-        'menu_main_top': menu_main_top,
-        'menu_main_bottom': menu_main_bottom
-    }
 
-    return render(request, 'event/sign_in.html', context=context)
 
-def sign_out(request):
-    context = {
-        'title': 'Sign Out',
-        'menu_main_top': menu_main_top,
-        'menu_main_bottom': menu_main_bottom
-    }
+class Contact(DataMixin, TemplateView):
+    template_name = 'event/contact.html'
 
-    return render(request, 'event/sign_out.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Contact')
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class About(DataMixin, TemplateView):
+    template_name = 'event/about.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='About')
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class SignOut(View):
+    def get(self, request):
+        logout(request)
+        return redirect('index')
+
+    # TODO: Подумать, как вернуть этот класс к типу TemplateView.
+
+
+class SignUp(DataMixin, CreateView):
+    form_class = SignUpForm
+    template_name = 'event/sign_up.html'
+    success_url = reverse_lazy('sign_in')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Sign Up')
+        return dict(list(context.items()) + list(c_def.items()))
+
+    # Если пользователь успешно зарегистрирован,
+    # то он автоматически аутентифицируется и перенеправляется
+    # на главную страницу.
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('index')
+
+
+class SignIn(DataMixin, LoginView):
+    form_class = SignInForm
+    template_name = 'event/sign_in.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Sign In')
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_success_url(self):
+        return reverse_lazy('index')
+
+
+class MySpace(DataMixin, TemplateView):
+    template_name = 'event/my_space.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='My Space')
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class ForgotPassword(DataMixin, TemplateView):
+    template_name = 'event/forgot_password.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Forgot Password')
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class Profile(DataMixin, TemplateView):
+    template_name = 'event/profile.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Profile')
+        return dict(list(context.items()) + list(c_def.items()))
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound("Страница не найдена.")
