@@ -7,6 +7,7 @@
 <div class="event">
     <p>{{events_item.title}}</p>
     <p>{{events_item.time_create|date:"d-m-Y H:i:s"}}</p>
+    <p>{{events_item.user_create}}</p>
     <p>{{events_item.scope}}</p>
     <p><a href="{{ events_item.get_absolute_url }}">View Event</a></p>
 </div>
