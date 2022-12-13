@@ -2,6 +2,7 @@
 
 {% block content %}
 <p>Main Page</p>
+{% if events|length > 0 %}
 {% for events_item in events %}
 <div class="event">
     <p>{{events_item.title}}</p>
@@ -10,4 +11,7 @@
     <p><a href="{{ events_item.get_absolute_url }}">View Event</a></p>
 </div>
 {% endfor %}
+{% else %}
+<p>No events</p>
+{% endif %}
 {% endblock content %}
