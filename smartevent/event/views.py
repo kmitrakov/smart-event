@@ -55,14 +55,6 @@ class EventAdd(LoginRequiredMixin, DataMixin, CreateView):
         form.instance.user_create = self.request.user
         return super().form_valid(form)
 
-        # form.instance.user_create = self.request.user.id
-        # return super().form_valid(form)
-
-        # self.object = form.save(commit=False)
-        # self.object.user_create = self.request.user.id
-        # self.object.save()
-        # return HttpResponseRedirect(self.get_success_url())
-
 
 class Contact(DataMixin, TemplateView):
     template_name = 'event/contact.html'

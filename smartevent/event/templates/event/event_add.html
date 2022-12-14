@@ -1,7 +1,7 @@
 {% extends 'event/base.html' %}
 
 {% block content %}
-<p>Event Add</p>
+<h1>Event Add</h1>
 <form action="{% url 'event_add' %}" method="post">
     {% csrf_token %}
     <div>{{ form.non_field_errors }}</div>
